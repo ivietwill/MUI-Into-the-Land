@@ -6,19 +6,23 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody player;
-    [SerializeField] private FixedJoystick _joystick;
+    [SerializeField] private VariableJoystick _joystick;
     [SerializeField] private float _moveSpeed;
+    [SerializeField] private float rotateSpeed;
 
     [SerializeField] List<GameObject> checkPoints;
     [SerializeField] Vector3 vectorPoint;
-    [SerializeField] private float dead = 20f;
+    [SerializeField] private float dead;
 
     [SerializeField] private float jump = 20;
     [SerializeField] private float timeWait = 0.5f;
 
     [SerializeField] private bool isGrounded = true;
+    [SerializeField] private Animator anim;
 
-    public bool isJumping;
+    [SerializeField] private GameObject joystickBtn;
+
+
 
     Vector3 originPosition;
     Rigidbody rb;
@@ -32,7 +36,7 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
-        if(player.transform.position.y < -dead)
+        if(player.transform.position.y <= -dead)
         {
             player.transform.position = vectorPoint;
         }
@@ -42,11 +46,26 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     private void FixedUpdate()
     {
-        player.velocity = new Vector3(_joystick.Horizontal * _moveSpeed, player.velocity.y, _joystick.Vertical * _moveSpeed);
+        player.velocity = new Vector3(_joystick.Horizontal * _moveSpeed, player.velocity.y, _joystick.Vertical * rotateSpeed);
         
         if (_joystick.Horizontal != 0 || _joystick.Vertical != 0) 
         {
+            anim.SetBool("Running", true);
+            joystickBtn.SetActive(false);
             transform.rotation = Quaternion.LookRotation(player.velocity);
+        }
+
+        else
+        {
+            joystickBtn.SetActive(true);
+            anim.SetBool("Running", false);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space)) 
+        {
+        
+                rb.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
+         
         }
     }
 
@@ -56,16 +75,14 @@ public class playerController : MonoBehaviour
         if (isGrounded == true)
         {
             isGrounded = false;
+            anim.SetBool("Flap", true);
             rb.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
             StartCoroutine(waitJump());
+
         }
        
     }
 
-    public void checkJump()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -73,15 +90,22 @@ public class playerController : MonoBehaviour
         {
             gameObject.transform.position = originPosition;
         }
-
         vectorPoint = player.transform.position;
         Destroy(other.gameObject);
+
+       
     }
+
+  
+
+
+
 
     IEnumerator waitJump()
     {
-
+        
         yield return new WaitForSeconds(timeWait);
+        anim.SetBool("Flap", false);
         isGrounded = true;
     }
 
