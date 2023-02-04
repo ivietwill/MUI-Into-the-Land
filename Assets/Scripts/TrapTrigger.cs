@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class TrapTrigger : MonoBehaviour
 {
-
-    [SerializeField] private float gravity = 20;
+ 
+    //[SerializeField] private float gravity = 20;
     private void Start()
     {
         //Rigidbody rb = GetComponent<Rigidbody>();
     }
     public void OnTriggerEnter(Collider other)
     {
-          if(other.gameObject.name == "Player")
+          if(other.gameObject.tag == "Player")
         {
             Debug.Log("Testing");
-            transform.position += new Vector3(0, 1,0) * gravity * Time.deltaTime;
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = false;
+
         }
         
     }

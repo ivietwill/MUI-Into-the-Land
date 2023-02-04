@@ -83,7 +83,7 @@ public class playerController : MonoBehaviour
        
     }
 
-
+/*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Trap")
@@ -94,7 +94,7 @@ public class playerController : MonoBehaviour
         Destroy(other.gameObject);
 
        
-    }
+    }*/
 
   
 
