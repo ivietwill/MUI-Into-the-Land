@@ -14,6 +14,9 @@ public class playerController : MonoBehaviour
     [SerializeField] private float dead = 20f;
 
     [SerializeField] private float jump = 20;
+    [SerializeField] private float timeWait = 0.5f;
+
+    [SerializeField] private bool isGrounded = true;
 
     public bool isJumping;
 
@@ -22,6 +25,7 @@ public class playerController : MonoBehaviour
 
     public void Start()
     {
+        isGrounded = true;
         rb = GetComponent<Rigidbody>();
         originPosition = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z);
     }
@@ -48,7 +52,19 @@ public class playerController : MonoBehaviour
 
     public void Jump()
     {
-        rb.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
+
+        if (isGrounded == true)
+        {
+            isGrounded = false;
+            rb.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
+            StartCoroutine(waitJump());
+        }
+       
+    }
+
+    public void checkJump()
+    {
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,5 +77,13 @@ public class playerController : MonoBehaviour
         vectorPoint = player.transform.position;
         Destroy(other.gameObject);
     }
+
+    IEnumerator waitJump()
+    {
+
+        yield return new WaitForSeconds(timeWait);
+        isGrounded = true;
+    }
+
 
 }
