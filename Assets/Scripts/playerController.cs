@@ -64,7 +64,7 @@ public class playerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space)) 
         {
         
-                rb.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, jump, 0), ForceMode.Impulse);
          
         }
     }
