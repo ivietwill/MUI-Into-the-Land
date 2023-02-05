@@ -7,17 +7,17 @@ public class CinematicCountdown : MonoBehaviour
 
     [SerializeField] GameObject CineCam;
     [SerializeField] GameObject Joystick;
-    [SerializeField] GameObject Btn;
-    [SerializeField] GameObject JoystickLogo;
+   // [SerializeField] GameObject Btn;
+  //  [SerializeField] GameObject JoystickLogo;
 
     [SerializeField] float WaitTime = 7.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        Btn.SetActive(false);
+     //   Btn.SetActive(false);
         Joystick.SetActive(false);
-        JoystickLogo.SetActive(false);
+     //   JoystickLogo.SetActive(false);
        
 
         StartCoroutine(Countdown());
@@ -26,9 +26,9 @@ public class CinematicCountdown : MonoBehaviour
     IEnumerator Countdown()
     {
         yield return new WaitForSeconds(WaitTime);
-        Btn.SetActive(true);
+     //   Btn.SetActive(true);
         Joystick.SetActive(true);
-        JoystickLogo.SetActive(true);
+      //  JoystickLogo.SetActive(true);
         gameObject.SetActive(false);
     }
 }

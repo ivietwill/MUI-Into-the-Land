@@ -9,6 +9,8 @@ TagManager:
   - CheckTrap
   - CheckPoints
   - FallPoints
+  - CheckPoints2
+  - CheckPoints3
   layers:
   - Default
   - TransparentFX

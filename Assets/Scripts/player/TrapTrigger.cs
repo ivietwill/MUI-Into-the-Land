@@ -8,7 +8,7 @@ public class TrapTrigger : MonoBehaviour
     //[SerializeField] private float gravity = 20;
     private void Start()
     {
-        //Rigidbody rb = GetComponent<Rigidbody>();
+        
     }
     public void OnTriggerEnter(Collider other)
     {

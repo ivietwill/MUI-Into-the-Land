@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -96,17 +97,43 @@ public class playerController : MonoBehaviour
         {
 
             vectorPoint = CpOther.transform.position;
-            Destroy(CpOther.gameObject);
+            CpOther.gameObject.SetActive(false);
         }
+
+
+        if (CpOther.gameObject.tag == "CheckPoints2")
+        {
+
+            vectorPoint = CpOther.transform.position;
+            CpOther.gameObject.SetActive(false);
+        }
+
+
+        if (CpOther.gameObject.tag == "CheckPoints3")
+        {
+
+            vectorPoint = CpOther.transform.position;
+            CpOther.gameObject.SetActive(false);
+        }
+
+
+
+
+
+
+
+
+
 
         if (CpOther.gameObject.tag == "FallPoints")
         {
             rb.isKinematic = false;
-            vectorPoint.y = vectorPoint.y + 10;
             transform.position = vectorPoint;
             
         }
     }
+
+
 
   
 
